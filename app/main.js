@@ -4,8 +4,9 @@ var Container = require('./container.jsx');
 
 import '../main.css';
 
+const URLS = {orders: 'api/orders', meals: 'api/meals'};
 ReactDOM.render(
-    <Container url='api/orders'/>,
+    <Container urls={URLS}/>,
     document.getElementById('app')
 );
 

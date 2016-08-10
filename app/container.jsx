@@ -2,6 +2,7 @@ var React = require('react');
 var OrderForm = require('./order-form.jsx');
 var OrderList = require('./order-list.jsx');
 var Meals = require('./meals.jsx');
+var {httpGetJSON, httpPostURL} = require('../common/xhr-helper');
 
 var ORDERS = [
   {
@@ -60,75 +61,47 @@ var MEALS = [
 
 var Container = React.createClass({
   getInitialState() {
-    return {orders: []};
+    return {orders: [], meals: []};
   },
   loadOrdersFromServer() {
-    /*
-    fetch(this.props.url, {method: 'get'})
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.setState({orders: data});
-      })
-      .catch(e => {
-        console.error(e);
-      });
-    */
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      cache: false,
-      success: function(data){
-        this.setState({orders: data});
-      }.bind(this),
-      error: function(xhr, status, err){
-        console.log(this.props.url, status, err.toString());
-      }.bind(this)
+    httpGetJSON(this.props.urls.orders, json => {
+      if(json){
+        this.setState({orders: json});
+      } else {
+        console.log(this.props.urls.orders, "loading failed");
+      }
+    });
+    httpGetJSON(this.props.urls.meals, json => {
+      if(json){
+        this.setState({meals: json});
+      } else {
+        console.log(this.props.urls.meals, "loading failed");
+      }
     });
   },
   componentDidMount() {
     this.loadOrdersFromServer();
+  },
+  handleMealSumbit(meal) {
   },
   handleOrderSumbit(order) {
     var orders = this.state.orders;
     order.date = new Date();
     order.price = Math.random() * 10; 
     var newOrders = orders.concat(order);
-    //this.setState({orders: newOrders});
-    var content = JSON.stringify(order);
-    console.log("content" + content);  
-    
-    /* 
-    fetch(this.props.url, {method: 'post', body: content})
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.setState({orders: data});
-      })
-      .catch(e => {
-        console.error(e);
-      });
-    */
-    $.ajax({
-      url: this.props.url,
-      type: 'POST',
-      dataType: 'json',
-      data: order,
-      success: function(data){
-        this.setState({orders: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log(this.props.url, status, err.toString());
-      }.bind(this)
-    })
+    httpPostURL(this.props.urls.orders, JSON.stringify(order), function(success, xhr, data) {
+      if(success) {
+        this.setState({orders: JSON.parse(data)});
+      } else {
+        console.log(this.props.urls.orders, "POST", data, "failed");
+      }
+    }.bind(this));
   },
   render() {
     return (
       <div>
         <div id='mealPanel'>
-          <Meals meals={MEALS}></Meals>
+          <Meals meals={this.state.meals}></Meals>
         </div>
         <div id='orderPanel'>
           <OrderForm onOrderSubmit={this.handleOrderSumbit}></OrderForm>

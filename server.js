@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 const ORDERS_FILE = path.join(__dirname, 'orders.json');
+const MEALS_FILE = path.join(__dirname, 'meals.json');
 
 app.set('port', process.env.PORT || 3000);
 
@@ -31,8 +32,18 @@ app.get('/api/orders', function(req, res) {
   });
 });
 
+app.get('/api/meals', function(req, res) {
+  fs.readFile(MEALS_FILE, function(err, data){
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    res.json(JSON.parse(data));
+  });
+});
+
 app.post('/api/orders', function(req, res) {
-  fs.readFile(ORDERS_FILE, function(err, data) {
+    fs.readFile(ORDERS_FILE, function(err, data) {
     if(err) {
       console.error(err);
       process.exit(1);
