@@ -1,25 +1,84 @@
 .carousel-enter {
-    opacity: 0;
+  opacity: 0;
+  height: 0px;
 }
 .carousel-enter-active {
-    opacity: 1;
-    transition: opacity 300ms ease-in;
+  opacity: 1;
+  height: 150px;
+  transition: all 500ms ease-in;
 }
 .carousel-leave {
-    opacity: 1;
-}
-.carousel-leave-active {
-    opacity: 0;
-    transition: opacity 300ms ease-in;
-}
-
-/*
-.example-enter {
-  opacity: 0.01;
-  transition: opacity .5s ease-in;
-}
-
-.example-enter.example-enter-active {
   opacity: 1;
 }
-*/
+.carousel-leave-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+#management_entry {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: grey;
+  text-decoration: underline;
+}
+
+.meals {
+}
+
+.mealInfo {
+  width: 300px;
+  height: 300px;
+  margin: 5px;
+  background-color: #CCCCCC;
+  display: inline-block;
+}
+
+.mealInfo .mealInfoImg {
+  min-width: 0px;
+  min-height: 0px;
+
+  max-width: 300px;
+  max-height: 200px;
+  display: block;
+  margin-left: auto;  
+  margin-right: auto;  
+}
+
+.mealInfo .mealInfoMeal {
+  display: inline-block;
+  padding-left: 10px;
+  width: 45%;
+}
+
+.mealInfo .mealInfoPrice {
+  display: inline-block;
+  width: 20%;
+}
+
+.mealInfo .mealInfoOrder {
+  display: inline-block;
+  width: 90px;
+  padding-right: 10px;
+  background-color: #22AAAA;
+}
+
+.mealInfo .mealInfoOrder:hover {
+  background-color: #EE4444;
+}
+
+.orderInfo:nth-child(odd) {
+  background-color: #CCCCCC;
+}
+
+.orderInfo:nth-child(even) {
+  background-color: #EEEEEE;
+}
+
+#mealPanel {
+  float: left;
+}
+
+#orderPanel {
+  float: right;
+}

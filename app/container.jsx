@@ -1,6 +1,7 @@
 var React = require('react');
 var OrderForm = require('./order-form.jsx');
 var OrderList = require('./order-list.jsx');
+var Meals = require('./meals.jsx');
 
 var ORDERS = [
   {
@@ -26,6 +27,34 @@ var ORDERS = [
     user: 'Johnny',
     meal: '宫保鸡丁3',
     price: 23  
+  }
+];
+
+var MEALS = [
+  {
+    meal: "小炒肉",
+    price: 15,
+    imgUrl: "http://images.meishij.net/p/20130613/47b8be11272cb69d36f92ea984c636ad.jpg"
+  },
+  {
+    meal: "小炒肉2",
+    price: 15,
+    imgUrl: "http://images.meishij.net/p/20130613/47b8be11272cb69d36f92ea984c636ad.jpg"
+  },
+  {
+    meal: "小炒肉3",
+    price: 15,
+    imgUrl: "http://images.meishij.net/p/20130613/47b8be11272cb69d36f92ea984c636ad.jpg"
+  },
+  {
+    meal: "小炒肉4",
+    price: 15,
+    imgUrl: "http://images.meishij.net/p/20130613/47b8be11272cb69d36f92ea984c636ad.jpg"
+  },
+  {
+    meal: "小炒肉5",
+    price: 15,
+    imgUrl: "http://images.meishij.net/p/20130613/47b8be11272cb69d36f92ea984c636ad.jpg"
   }
 ];
 
@@ -98,8 +127,13 @@ var Container = React.createClass({
   render() {
     return (
       <div>
-        <OrderForm onOrderSubmit={this.handleOrderSumbit}></OrderForm>
-        <OrderList orders={this.state.orders}></OrderList>
+        <div id='mealPanel'>
+          <Meals meals={MEALS}></Meals>
+        </div>
+        <div id='orderPanel'>
+          <OrderForm onOrderSubmit={this.handleOrderSumbit}></OrderForm>
+          <OrderList orders={this.state.orders}></OrderList>
+        </div>
       </div>
     );
   }

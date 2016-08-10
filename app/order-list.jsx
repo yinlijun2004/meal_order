@@ -15,8 +15,8 @@ var OrderList = React.createClass({
     }
 
     return (
-      <div className="orderList" >
-        <ReactCSSTransitionGroup transitionName="carousel">
+      <div>
+        <ReactCSSTransitionGroup className="orderList" transitionName="carousel">
           {infos}
         </ReactCSSTransitionGroup>
       </div>
