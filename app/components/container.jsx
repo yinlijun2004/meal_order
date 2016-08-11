@@ -4,9 +4,9 @@ var React = require('react');
 var OrderForm = require('./order-form.jsx');
 var OrderList = require('./order-list.jsx');
 var Meals = require('./meals.jsx');
-var MealManager = require('./meal-manager.jsx');
-var {httpGetJSON, httpPostURL} = require('../common/xhr-helper');
-var ServerUrl = require('./server-api'); 
+var AppActions = require("../actions/app-actions.js");
+var AppStore = require("../stores/app-store.js");
+var Api = require("../api/api");
 
 var ORDERS = [
   {
@@ -63,28 +63,29 @@ var MEALS = [
   }
 ];
 
+function getState() {
+  var state = {
+    meals: AppStore.getMeals(),
+    orders: AppStore.getOrders(),
+  }
+
+  return state;
+}
+
 var Container = React.createClass({
-  getInitialState() {
-    return {orders: [], meals: []};
+  _onChange() {
+    this.setState(getState());
   },
-  loadOrdersFromServer() {
-    httpGetJSON(ServerUrl.orders, json => {
-      if(json){
-        this.setState({orders: json});
-      } else {
-        console.log(ServerUrl.orders, "loading failed");
-      }
-    });
-    httpGetJSON(ServerUrl.meals, json => {
-      if(json){
-        this.setState({meals: json});
-      } else {
-        console.log(ServerUrl.meals, "loading failed");
-      }
-    });
+  componentWillUnmount() {
+    AppStore.removeChangeListener(this._onChange);
+  },
+  getInitialState() {
+    return getState();
   },
   componentDidMount() {
-    this.loadOrdersFromServer();
+    Api.loadMeals();
+    Api.loadOrders();
+    AppStore.addChangeListener(this._onChange);
   },
   handleMealSumbit(meal) {
   },
@@ -101,10 +102,6 @@ var Container = React.createClass({
       }
     }.bind(this));
   },
-/*
-*/
-
-  //<MealManager meals={this.state.meals}></MealManager>
   render() {
     return (
       <div>

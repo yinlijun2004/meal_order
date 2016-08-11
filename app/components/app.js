@@ -6,7 +6,6 @@ var App = React.createClass({
     return (
       <div>
         <ul role="nav">
-          <li><NavLink to="/orders" onlyActiveOnIndex>订餐</NavLink></li>
           <li><NavLink to="/managerment">管理菜单</NavLink></li>
         </ul>
         {this.props.children}

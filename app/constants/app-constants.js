@@ -1,0 +1,4 @@
+module.exports = {
+	RECEIVE_ORDERS: 'RECEIVE_ORDERS',
+	RECEIVE_MEALS: 'RECEIVE_MEALS'
+}

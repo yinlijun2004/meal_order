@@ -3,7 +3,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var { Router, browserHistory } = require('react-router');
-var routes = require('./routes');
+var routes = require('./routes/routes');
 
 ReactDOM.render(
   <Router routes={routes} history={browserHistory}/>,
