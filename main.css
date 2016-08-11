@@ -34,6 +34,42 @@
   display: inline-block;
 }
 
+.mealComposeSnap {
+  position: relative;
+  top: -143px;
+  left: 5px;
+  width: 300px;
+  height: 300px;
+  margin: 5px;
+  background-color: #CCCCCC;
+  display: inline-block;
+  margin-left: auto;  
+  margin-right: auto;
+}
+
+.mealComposeSnap .addButton {
+  position: relative;
+  top: 80px;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  background-color: #22AAAA;
+  margin-left: auto;  
+  margin-right: auto;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 100px;
+  color: #00EEEE;
+}
+
+.mealComposeSnap div:hover {
+  background-color: #EE4444;
+}
+
+.mealComposeSnap div:active {
+  background-color: #EE8888;
+}
+
 .mealInfo .mealInfoImg {
   min-width: 0px;
   min-height: 0px;

@@ -1,3 +1,16 @@
+'use strict'
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+var { Router, browserHistory } = require('react-router');
+var routes = require('./routes');
+
+ReactDOM.render(
+  <Router routes={routes} history={browserHistory}/>,
+  document.getElementById('app')
+);
+
+/*
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Container = require('./container.jsx');
@@ -9,6 +22,7 @@ ReactDOM.render(
     <Container urls={URLS}/>,
     document.getElementById('app')
 );
+*/
 
 /*
 import '../main.css';

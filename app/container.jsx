@@ -1,8 +1,12 @@
+'use strict';
+
 var React = require('react');
 var OrderForm = require('./order-form.jsx');
 var OrderList = require('./order-list.jsx');
 var Meals = require('./meals.jsx');
+var MealManager = require('./meal-manager.jsx');
 var {httpGetJSON, httpPostURL} = require('../common/xhr-helper');
+var ServerUrl = require('./server-api'); 
 
 var ORDERS = [
   {
@@ -64,18 +68,18 @@ var Container = React.createClass({
     return {orders: [], meals: []};
   },
   loadOrdersFromServer() {
-    httpGetJSON(this.props.urls.orders, json => {
+    httpGetJSON(ServerUrl.orders, json => {
       if(json){
         this.setState({orders: json});
       } else {
-        console.log(this.props.urls.orders, "loading failed");
+        console.log(ServerUrl.orders, "loading failed");
       }
     });
-    httpGetJSON(this.props.urls.meals, json => {
+    httpGetJSON(ServerUrl.meals, json => {
       if(json){
         this.setState({meals: json});
       } else {
-        console.log(this.props.urls.meals, "loading failed");
+        console.log(ServerUrl.meals, "loading failed");
       }
     });
   },
@@ -84,28 +88,34 @@ var Container = React.createClass({
   },
   handleMealSumbit(meal) {
   },
-  handleOrderSumbit(order) {
+  handleOrderSumbit(id) {
     var orders = this.state.orders;
     order.date = new Date();
     order.price = Math.random() * 10; 
     var newOrders = orders.concat(order);
-    httpPostURL(this.props.urls.orders, JSON.stringify(order), function(success, xhr, data) {
+    httpPostURL(ServerUrl.orders, JSON.stringify(order), function(success, xhr, data) {
       if(success) {
         this.setState({orders: JSON.parse(data)});
       } else {
-        console.log(this.props.urls.orders, "POST", data, "failed");
+        console.log(ServerUrl.orders, "POST", data, "failed");
       }
     }.bind(this));
   },
+/*
+*/
+
+  //<MealManager meals={this.state.meals}></MealManager>
   render() {
     return (
       <div>
         <div id='mealPanel'>
-          <Meals meals={this.state.meals}></Meals>
-        </div>
-        <div id='orderPanel'>
-          <OrderForm onOrderSubmit={this.handleOrderSumbit}></OrderForm>
-          <OrderList orders={this.state.orders}></OrderList>
+          <div id='mealPanel'>
+            <Meals meals={this.state.meals} onOrderSubmit={this.handleOrderSumbit}></Meals>
+          </div>
+          <div id='orderPanel'>
+            <h3>已下订单</h3>
+            <OrderList orders={this.state.orders}></OrderList>
+          </div>
         </div>
       </div>
     );
