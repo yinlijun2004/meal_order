@@ -15,15 +15,8 @@
   transition: opacity 300ms ease-in;
 }
 
-#management_entry {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  color: grey;
-  text-decoration: underline;
-}
-
-.meals {
+.mealsRow {
+  display: flex;
 }
 
 .mealInfo {
@@ -31,35 +24,41 @@
   height: 300px;
   margin: 5px;
   background-color: #CCCCCC;
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.mealDetialRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
 }
 
 .mealComposeSnap {
-  position: relative;
-  top: -143px;
-  left: 5px;
   width: 300px;
   height: 300px;
   margin: 5px;
   background-color: #CCCCCC;
-  display: inline-block;
-  margin-left: auto;  
-  margin-right: auto;
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .mealComposeSnap .addButton {
-  position: relative;
-  top: 80px;
   border-radius: 100%;
   width: 120px;
   height: 120px;
   background-color: #22AAAA;
-  margin-left: auto;  
-  margin-right: auto;
-  vertical-align: middle;
-  text-align: center;
   font-size: 100px;
   color: #00EEEE;
+  align-self: center;
 }
 
 .mealComposeSnap div:hover {
@@ -68,38 +67,20 @@
 
 .mealComposeSnap div:active {
   background-color: #EE8888;
+  height: 120px;
+  width: 120px;
 }
 
 .mealInfo .mealInfoImg {
-  min-width: 0px;
-  min-height: 0px;
-
-  max-width: 300px;
-  max-height: 200px;
-  display: block;
-  margin-left: auto;  
-  margin-right: auto;  
+  max-width: 150px;
+  align-self: center;
 }
 
-.mealInfo .mealInfoMeal {
-  display: inline-block;
-  padding-left: 10px;
-  width: 45%;
-}
-
-.mealInfo .mealInfoPrice {
-  display: inline-block;
-  width: 20%;
-}
-
-.mealInfo .mealInfoOrder {
-  display: inline-block;
-  width: 90px;
-  padding-right: 10px;
+.mealDetialRow .mealInfoOrder {
   background-color: #22AAAA;
 }
 
-.mealInfo .mealInfoOrder:hover {
+.mealDetialRow .mealInfoOrder:hover {
   background-color: #EE4444;
 }
 

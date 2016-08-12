@@ -19,9 +19,11 @@ var Meal = React.createClass({
     return (
       <div className="mealInfo">
         <img className="mealInfoImg" src={info.imgUrl}></img>
-        <p className="mealInfoMeal">{info.meal}</p>
-        <p className="mealInfoPrice">{info.price}</p>
-        <input type="button" className="mealInfoOrder" value={str} onClick={handle}></input>
+        <div className="mealDetialRow">
+          <p className="mealInfoMeal">{info.meal}</p>
+          <p className="mealInfoPrice">{info.price}</p>
+          <input type="button" className="mealInfoOrder" value={str} onClick={handle}></input>
+        </div>
       </div>
     );
   }
