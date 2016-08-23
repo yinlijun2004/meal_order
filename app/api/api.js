@@ -1,24 +1,30 @@
-var {httpGetJSON, httpPostURL} = require('../common/xhr-helper');
 var ServerUrl = require('../constants/server-api'); 
 var AppActions = require('../actions/app-actions');
+var fetch = require('node-fetch');
 
 var Api = {
   loadMeals() {
-    httpGetJSON(ServerUrl.meals, json => {
-      if(json){
-        AppActions.receiveMeals(json);
-      } else {
-        console.log(ServerUrl.meals, "loading failed");
-      }
+    fetch(ServerUrl.meals)
+    .then(function(res){
+      return res.json();
+    })
+    .then(function(json){
+      AppActions.receiveMeals(json);
+    })
+    .catch(function(e){
+      console.log(ServerUrl.meals, "loading failed", e);
     });
   },
   loadOrders() {
-    httpGetJSON(ServerUrl.orders, json => {
-      if(json){
-        AppActions.receiveOrders(json);
-      } else {
-        console.log(ServerUrl.orders, "loading failed");
-      }
+    fetch(ServerUrl.orders)
+    .then(function(res){
+      return res.json();
+    })
+    .then(function(json){
+      AppActions.receiveOrders(json);
+    })
+    .catch(function(e){
+      console.log(ServerUrl.orders, "loading failed", e);
     });
   }
 }

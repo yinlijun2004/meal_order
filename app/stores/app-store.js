@@ -16,6 +16,16 @@ var AppStore = assign({}, EventEmitter.prototype, {
   getMeals() {
     return _meals;
   },
+  getMealById(id) {
+    return _meals.find(function(meal){
+      return id === meal.id;
+    });
+  },
+  getOrderById() {
+    return _orders.find(function(order){
+      return id === order.id;
+    });
+  },
   getOrders() {
     return _orders;
   },

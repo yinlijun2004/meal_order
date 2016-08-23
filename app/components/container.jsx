@@ -1,12 +1,14 @@
 'use strict';
 
 var React = require('react');
+var fetch = require('node-fetch');
 var OrderForm = require('./order-form.jsx');
 var OrderList = require('./order-list.jsx');
 var Meals = require('./meals.jsx');
 var AppActions = require("../actions/app-actions.js");
 var AppStore = require("../stores/app-store.js");
 var Api = require("../api/api");
+var ServerUrl = require("../constants/server-api.js");
 
 var ORDERS = [
   {
@@ -89,18 +91,30 @@ var Container = React.createClass({
   },
   handleMealSumbit(meal) {
   },
-  handleOrderSumbit(id) {
+  handleOrderSumbit(mealId) {
     var orders = this.state.orders;
-    order.date = new Date();
-    order.price = Math.random() * 10; 
+    var order = {mealId: mealId};
+    order.meal = AppStore.getMealById(mealId);
+    order.user = 'Johnny';
     var newOrders = orders.concat(order);
-    httpPostURL(ServerUrl.orders, JSON.stringify(order), function(success, xhr, data) {
-      if(success) {
-        this.setState({orders: JSON.parse(data)});
-      } else {
-        console.log(ServerUrl.orders, "POST", data, "failed");
-      }
-    }.bind(this));
+    
+    fetch(ServerUrl.orders, { 
+        method: 'POST', 
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(order) 
+      })
+      .then(function(res){
+        return res.json();
+      })
+      .then(function(json){
+        this.setState({orders: json});
+      }.bind(this))
+      .catch(function(e){
+        console.log(ServerUrl.orders, "POST", "failed", e);
+      });
   },
   render() {
     return (

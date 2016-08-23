@@ -7,7 +7,7 @@ var OrderList = React.createClass({
   render: function() {
     var orders = this.props.orders;
     var infos = orders.map((order, key) => {
-      return (<OrderInfo key={key} meal={order.meal} price={order.price} user={order.user} date={order.date}></OrderInfo>)
+      return (<OrderInfo key={key} order={order}></OrderInfo>)
     });
 
     if(infos.length === 0){

@@ -49,10 +49,10 @@ app.post('/api/orders', function(req, res) {
       process.exit(1);
     }
     let orders = JSON.parse(data);
-    var newOrder = {
+    let newOrder = {
       date: Date.now(),
+      id: Date.now() + Math.floor(0xffffff * Math.random()),
       meal: req.body.meal,
-      price: req.body.price,
       user: req.body.user
     };
     orders.push(newOrder);
